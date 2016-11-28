@@ -3,9 +3,9 @@ package br.com.model.controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.faces.bean.ViewScoped;
 
 import br.com.model.modelo.Fabricante;
 import br.com.model.service.CadastroFabricanteService;

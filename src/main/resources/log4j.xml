@@ -23,7 +23,7 @@
     </logger>
 
 	<root>
-		<priority value="info" />
+		<priority value="debug" />
 		<appender-ref ref="arquivo" />
 		<appender-ref ref="console" />
 	</root>

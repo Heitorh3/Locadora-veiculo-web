@@ -17,8 +17,6 @@ public class CadastroFabricanteService implements Serializable{
 	
 	@Transacional
 	public void salvar(Fabricante fabricante)throws NegocioException {
-		System.out.println("-------------------------");
-		System.out.println(fabricante.getNome());
 		if (fabricante.getNome() == null || fabricante.getNome().trim().equals("")) { 
 			throw new NegocioException("O nome do fabricante é obrigatório");
 		}
