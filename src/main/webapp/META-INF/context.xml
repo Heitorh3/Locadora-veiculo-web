@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" 
+		reloadable="true" />
+
+	<!-- <Realm className="org.apache.catalina.realm.JDBCRealm"
+				driverName="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/sigemdb"
+				connectionName="root" connectionPassword="If07Nt13"
+				userTable="usuario" userNameCol="login"
+				userCredCol="senha" userRoleTable="usuario_permissao"
+				roleNameCol="permissao" digest="MD5"/> -->
+
+</Context>

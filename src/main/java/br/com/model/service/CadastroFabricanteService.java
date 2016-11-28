@@ -1,0 +1,28 @@
+package br.com.model.service;
+
+import java.io.Serializable;
+
+import javax.inject.Inject;
+
+import br.com.model.dao.FabricanteDao;
+import br.com.model.modelo.Fabricante;
+import br.com.model.util.cdi.Transacional;
+
+public class CadastroFabricanteService implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private FabricanteDao fabricanteDao;
+	
+	@Transacional
+	public void salvar(Fabricante fabricante)throws NegocioException {
+		System.out.println("-------------------------");
+		System.out.println(fabricante.getNome());
+		if (fabricante.getNome() == null || fabricante.getNome().trim().equals("")) { 
+			throw new NegocioException("O nome do fabricante é obrigatório");
+		}
+		
+		this.fabricanteDao.salvar(fabricante);
+	}
+}
