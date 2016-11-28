@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import br.com.model.dao.FabricanteDao;
 import br.com.model.modelo.Fabricante;
-import br.com.model.util.cdi.Transacional;
+import br.com.model.util.jpa.Transacional;
 
 public class CadastroFabricanteService implements Serializable{
 

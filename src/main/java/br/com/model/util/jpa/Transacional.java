@@ -1,4 +1,4 @@
-package br.com.model.util.cdi;
+package br.com.model.util.jpa;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

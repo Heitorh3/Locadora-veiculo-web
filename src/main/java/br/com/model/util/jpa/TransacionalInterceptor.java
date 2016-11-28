@@ -1,4 +1,4 @@
-package br.com.model.util.cdi;
+package br.com.model.util.jpa;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import br.com.model.util.cdi.Transacional;
+import br.com.model.util.jpa.Transacional;
 
 @Interceptor
 @Transacional

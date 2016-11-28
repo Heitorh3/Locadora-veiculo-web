@@ -1,4 +1,4 @@
-package br.com.model.util.cdi;
+package br.com.model.util.jpa;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
