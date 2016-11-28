@@ -24,7 +24,10 @@ public class EntityManagerProducer {
 	}
 	
 	public void closeEntityManager(@Disposes EntityManager manager) {
-		manager.close();
+		if(manager.isOpen()){
+			manager.close();
+		}
+		
 	}
 
 }

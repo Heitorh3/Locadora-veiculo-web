@@ -1,4 +1,4 @@
-package br.com.model.util.cdi.jsf;
+package br.com.model.util.jsf;
 
 import java.util.Arrays;
 import java.util.Map;

@@ -10,7 +10,7 @@ import javax.inject.Named;
 import br.com.model.modelo.Fabricante;
 import br.com.model.service.CadastroFabricanteService;
 import br.com.model.service.NegocioException;
-import br.com.model.util.cdi.jsf.FacesUtil;
+import br.com.model.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
