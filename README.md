@@ -25,7 +25,7 @@ Arquivo web.xml da aplicação
 	
 Obs:
 
-	Você de copiar as bibliotecas do C3P0 para a pasta lib do tomcat.
+	Você deve copiar as bibliotecas do C3P0 para a pasta lib do tomcat.
 	Bibliotecas estas:
 		* c3p0-0.9.5.1.jar
 		* mchange-commons-java-0.2.10.jar
