@@ -21,7 +21,6 @@ public class CadastroFabricanteBean implements Serializable{
 	@Inject
 	private CadastroFabricanteService cadastroFabricanteService;
 
-	@Inject
 	private Fabricante fabricante;
 	
 	public void salvar() {
