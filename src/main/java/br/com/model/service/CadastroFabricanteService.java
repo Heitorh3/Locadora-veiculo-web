@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import br.com.model.dao.FabricanteDao;
+import br.com.model.dao.FabricanteDAO;
 import br.com.model.modelo.Fabricante;
 import br.com.model.util.jpa.Transacional;
 
@@ -13,7 +13,7 @@ public class CadastroFabricanteService implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private FabricanteDao fabricanteDao;
+	private FabricanteDAO fabricanteDao;
 	
 	@Transacional
 	public void salvar(Fabricante fabricante)throws NegocioException {
