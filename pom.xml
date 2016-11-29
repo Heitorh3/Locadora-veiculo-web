@@ -8,66 +8,39 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-		<!-- DeltaSpike version -->
-		<!-- <deltaspike.version>1.7.2</deltaspike.version> -->
-
-		<!-- Weld Version -->
-		<weld.version>2.3.3.Final</weld.version>
 	</properties>
-
-	<repositories>
-		<!-- Primefaces repository -->
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-
+	
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>locadora-veiculo-web</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>4.0.3</version>
-				<configuration>
-					<driver>com.mysql.jdbc.Driver</driver>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 
 	<dependencies>
-		
-		<!-- Driver JDBC do MySQL -->
+		<!-- Mojarra (Implementação JSF 2) -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.25</version>
-			<scope>provided</scope>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.2.13</version>
+			<scope>compile</scope>
 		</dependency>
 
-		<!-- Primefaces -->
+		<!-- PrimeFaces (Biblioteca de componentes) -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.0</version>
 			<scope>compile</scope>
 		</dependency>
-
+		
 		<!-- Primefaces themes -->
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -79,46 +52,15 @@
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
-			<version>${weld.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>org.jboss.weld.se</groupId>
-		    <artifactId>weld-se</artifactId>
-		    <version>${weld.version}</version>
-		    <scope>runtime</scope>
+			<version>2.3.3.Final</version>
+			<scope>compile</scope>
 		</dependency>
 		
-		<!-- CDI API -->
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>1.2</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- Weld depende do Jandex -->
 		<dependency>
 			<groupId>org.jboss</groupId>
 			<artifactId>jandex</artifactId>
 			<version>1.2.2.Final</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Hibernate validator -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.2.Final</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Mojarra (implementação do JSF) -->
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.faces</artifactId>
-			<version>2.2.13</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -130,20 +72,15 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- Hibernate core -->
+		<!-- Núcleo do Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.6.Final</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- Implementação de EntityManager da JPA -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -151,6 +88,14 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Driver JDBC do MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.25</version>
+			<scope>compile</scope>
+		</dependency>
+		
 		<!-- Logging log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -167,5 +112,23 @@
 			<scope>compile</scope>
 		</dependency>
 
+		
 	</dependencies>
+
+	<!-- Repositorio PrimeFaces -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+
+		<repository>
+			<id>public-jboss</id>
+			<name>public-jboss</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
+	</repositories>
+
 </project>
