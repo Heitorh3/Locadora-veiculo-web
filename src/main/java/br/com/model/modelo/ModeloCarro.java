@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -34,6 +35,7 @@ public class ModeloCarro implements Serializable{
 	}
 	
 	@ManyToOne
+	@JoinColumn(name="codigo_fabricante")
 	public Fabricante getFabricante() {
 		return fabricante;
 	}
