@@ -36,7 +36,7 @@
 		    		</p:column>
 		    		<p:column headerText="Acessórios" style="width: 100px; text-align: center"> 
  		    			<p:commandButton icon="ui-icon-extlink" title="Acessórios" action="#{pesquisaCarroBean.buscarCarroComAcessorios}" 
- 		    					process="@this" oncomplete="mostraAcessorios.show()" update=":frmPesquisa:mostraAcessoriosDialog"> 
+ 		    					process="@this" oncomplete="PF('mostraAcessorios').show()" update=":frmPesquisa:mostraAcessoriosDialog"> 
  		    				<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" /> 
  		    			</p:commandButton> 
  		    		</p:column> 
@@ -45,7 +45,7 @@
 		    			<p:button outcome="CadastroCarro" icon="ui-icon-pencil" title="Editar">
 		    				<f:param name="carro" value="#{carro.codigo}"/>
 		    			</p:button>
-		    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="confirmacaoExclusao.show()"
+		    			<p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF(confirmacaoExclusao).show()"
 								process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
 							<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" />
 						</p:commandButton>
