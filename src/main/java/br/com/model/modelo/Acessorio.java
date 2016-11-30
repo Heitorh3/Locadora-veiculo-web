@@ -23,12 +23,14 @@ public class Acessorio implements Serializable{
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
+	
 	public String getDescricao() {
 		return Descricao;
 	}
 	public void setDescricao(String descricao) {
 		Descricao = descricao;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

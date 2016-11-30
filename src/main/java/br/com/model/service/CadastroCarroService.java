@@ -3,10 +3,10 @@ package br.com.model.service;
 import java.io.Serializable;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import br.com.model.dao.CarroDAO;
 import br.com.model.modelo.Carro;
+import br.com.model.util.jpa.Transacional;
 
 public class CadastroCarroService implements Serializable {
 
@@ -15,7 +15,7 @@ public class CadastroCarroService implements Serializable {
 	@Inject
 	private CarroDAO carroDAO;
 	
-	@Transactional
+	@Transacional
 	public void salvar(Carro carro) throws NegocioException {
 		
 		if (carro.getPlaca() == null || carro.getPlaca().trim().equals("")) {

@@ -18,6 +18,7 @@ public class AcessorioDAO implements Serializable {
 	private EntityManager entityManager;
 	
 	public void salvar(Acessorio acessorio){
+		System.out.println(acessorio.getDescricao());
 		this.entityManager.merge(acessorio);
 	}
 

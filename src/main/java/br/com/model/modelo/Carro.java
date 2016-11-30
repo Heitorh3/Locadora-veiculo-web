@@ -78,6 +78,7 @@ public class Carro  implements Serializable{
 	public void setAcessorios(List<Acessorio> acessorios) {
 		this.acessorios = acessorios;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

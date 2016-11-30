@@ -3,10 +3,10 @@ package br.com.model.service;
 import java.io.Serializable;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import br.com.model.dao.AcessorioDAO;
 import br.com.model.modelo.Acessorio;
+import br.com.model.util.jpa.Transacional;
 
 public class CadastroAcessorioService implements Serializable {
 
@@ -15,7 +15,7 @@ public class CadastroAcessorioService implements Serializable {
 	@Inject
 	private AcessorioDAO acessorioDAO;
 	
-	@Transactional
+	@Transacional
 	public void salvar(Acessorio acessorio) throws NegocioException {
 		
 		if (acessorio.getDescricao() == null || acessorio.getDescricao().trim().equals("")) {
