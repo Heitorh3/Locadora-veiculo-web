@@ -9,9 +9,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.model.dao.CarroDAO;
+import br.com.model.dao.MotoristaDAO;
 import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.ApoliceSeguro;
 import br.com.model.modelo.Carro;
+import br.com.model.modelo.Motorista;
 import br.com.model.service.CadastroAluguelService;
 import br.com.model.service.NegocioException;
 import br.com.model.util.jsf.FacesUtil;
@@ -32,6 +34,11 @@ public class NovoAluguelBean implements Serializable {
 	@Inject
 	private CarroDAO carroDAO;
 	
+	@Inject
+	private MotoristaDAO motoristaDAO;
+	
+	private List<Motorista> motoristas;
+	
 	public void salvar() {
 		try {
 			this.cadastroAluguelService.salvar(aluguel);
@@ -48,6 +55,7 @@ public class NovoAluguelBean implements Serializable {
 		this.limpar();
 		
 		this.carros = this.carroDAO.buscarTodos();
+		this.motoristas = this.motoristaDAO.buscarTodos();
 	}
 	
 	public void limpar() {
@@ -64,6 +72,10 @@ public class NovoAluguelBean implements Serializable {
 
 	public List<Carro> getCarros() {
 		return carros;
+	}
+	
+	public List<Motorista> getMotoristas() {
+	    return motoristas;
 	}
 
 }

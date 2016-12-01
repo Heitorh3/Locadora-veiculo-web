@@ -28,6 +28,7 @@ public class Aluguel implements Serializable {
 	private BigDecimal valorTotal;
 	private Carro carro;
 	private ApoliceSeguro apoliceSeguro;
+	private Motorista motorista;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,6 +86,15 @@ public class Aluguel implements Serializable {
 	}
 	public void setDataDevolucao(Date dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "codigo_motorista")
+	public Motorista getMotorista() {
+		return motorista;
+	}
+	public void setMotorista(Motorista motorista) {
+		this.motorista = motorista;
 	}
 	@Override
 	public int hashCode() {
