@@ -25,6 +25,9 @@
 		    		<p:column headerText="Código" style="text-align: center; width: 100px">
 		    			<h:outputText value="#{carro.codigo}" />
 		    		</p:column>
+		    		<p:column headerText="Modelo">
+		    			<h:outputText value="#{carro.modelo.descricao}" />
+		    		</p:column>
 		    		<p:column headerText="Placa">
 		    			<h:outputText value="#{carro.placa}" />
 		    		</p:column>
