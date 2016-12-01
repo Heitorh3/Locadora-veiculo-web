@@ -35,6 +35,14 @@
 	    		<p:outputLabel value="Nome" for="nome"/>
 	    		<p:inputText id="nome" size="60" maxlength="80" value="#{cadastroMotoristaBean.motorista.nome}"/>
 	    		
+	    		<p:outputLabel value="Sexo" for="sexo"/>
+	    		<p:selectOneMenu id="sexo" value="#{cadastroMotoristaBean.motorista.sexo}" required="true">
+	    				
+	    				<f:selectItem itemLabel="Selecione um genero"/>
+	    				<f:selectItems value="#{cadastroMotoristaBean.sexo}"  var="sexo"
+	    						itemLabel="#{sexo.descricao}" itemValue="#{sexo}"/>
+	    		</p:selectOneMenu>
+		    		
 	    		<p:outputLabel value="Data de nascimento" for="dataNascimento"/>
 	    		<p:calendar id="dataNascimento" size="20" value="#{cadastroMotoristaBean.motorista.dataNascimento}" pattern="dd/MM/yyyy" />
 	    		

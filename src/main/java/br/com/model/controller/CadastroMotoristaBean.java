@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.model.modelo.Motorista;
+import br.com.model.modelo.Sexo;
 import br.com.model.service.CadastroMotoristaService;
 import br.com.model.service.NegocioException;
 import br.com.model.util.jsf.FacesUtil;
@@ -26,6 +27,10 @@ public class CadastroMotoristaBean implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		this.limpar();
+	}
+	
+	public Sexo[] getSexo(){
+		return Sexo.values();
 	}
 	
 	public void salvar() {
