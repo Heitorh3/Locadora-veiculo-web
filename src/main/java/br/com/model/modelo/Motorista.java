@@ -8,15 +8,15 @@ import javax.persistence.Entity;
 @DiscriminatorValue("MOTORISTA")
 public class Motorista extends Pessoa{
 
-	private String numeroCHN;
+	private String numeroCNH;
 
 	@Column(name = "numero_cnh")
-	public String getNumeroCHN() {
-		return numeroCHN;
+	public String getNumeroCNH() {
+		return numeroCNH;
 	}
 
-	public void setNumeroCHN(String numeroCHN) {
-		this.numeroCHN = numeroCHN;
+	public void setNumeroCNH(String numeroCNH) {
+		this.numeroCNH = numeroCNH;
 	}
-	
+
 }
