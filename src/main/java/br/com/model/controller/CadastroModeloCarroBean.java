@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.model.dao.FabricanteDAO;
+import br.com.model.modelo.Categoria;
 import br.com.model.modelo.Fabricante;
 import br.com.model.modelo.ModeloCarro;
 import br.com.model.service.CadastroModeloCarroService;
@@ -41,6 +42,10 @@ public class CadastroModeloCarroBean implements Serializable {
 		}
 		
 		this.limpar();
+	}
+	
+	public Categoria[] getCategoria(){
+		return Categoria.values();
 	}
 	
 	@PostConstruct
