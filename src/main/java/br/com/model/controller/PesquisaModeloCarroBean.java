@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.model.dao.ModeloCarroDAO;
+import br.com.model.lazy.LazyModeloCarroDataModel;
 import br.com.model.modelo.ModeloCarro;
 import br.com.model.service.NegocioException;
 import br.com.model.util.jsf.FacesUtil;
@@ -25,6 +26,8 @@ public class PesquisaModeloCarroBean implements Serializable {
 	
 	@Inject
 	ModeloCarroDAO modeloCarroDAO;
+	
+	private LazyModeloCarroDataModel lazyModelos;
 
 	public List<ModeloCarro> getModelosCarro() {
 		return modelosCarro;
@@ -32,7 +35,8 @@ public class PesquisaModeloCarroBean implements Serializable {
 	
 	@PostConstruct
 	public void inicializar() {
-		this.modelosCarro = this.modeloCarroDAO.buscarTodos();
+		//this.modelosCarro = this.modeloCarroDAO.buscarTodos();
+		this.lazyModelos = new LazyModeloCarroDataModel(modeloCarroDAO);
 	}
 	
 	public void excluir() {
@@ -50,6 +54,10 @@ public class PesquisaModeloCarroBean implements Serializable {
 	}
 	public void setModeloCarroSelecionado(ModeloCarro modeloCarroSelecionado) {
 		this.modeloCarroSelecionado = modeloCarroSelecionado;
+	}
+
+	public LazyModeloCarroDataModel getLazyModelos() {
+		return lazyModelos;
 	}
 	
 }

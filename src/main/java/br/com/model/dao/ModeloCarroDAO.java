@@ -23,7 +23,19 @@ public class ModeloCarroDAO implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<ModeloCarro> buscarTodos() {
-		return entityManager.createQuery("from ModeloCarro").getResultList();
+		return entityManager.createNamedQuery("ModeloCarro.buscarTodos").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ModeloCarro> buscaComPaginacao(int first, int pageSize) {
+		return entityManager.createNamedQuery("ModeloCarro.buscarTodos")
+				.setFirstResult(first)
+				.setMaxResults(pageSize)
+				.getResultList();
+	}
+	
+	public Long encontrarQuantidadeDeModelosDeCarro() {
+		return entityManager.createQuery("select count(mc) from ModeloCarro mc", Long.class).getSingleResult();
 	}
 
 	@Transacional

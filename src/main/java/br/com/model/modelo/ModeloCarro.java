@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = "ModeloCarro.buscarTodos", query = "select mc  from ModeloCarro mc")
 public class ModeloCarro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
