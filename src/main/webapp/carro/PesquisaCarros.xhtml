@@ -19,9 +19,9 @@
     			</p:toolbarGroup>
     		</p:toolbar>
     	
-	    	<p:dataTable id="carrosTable" value="#{pesquisaCarroBean.carros}" var="carro"
-		    		style="margin-top: 20px" emptyMessage="Nenhum carro encontrado." rows="20"
-		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    	<p:dataTable id="carrosTable" value="#{pesquisaCarroBean.lazyCarros}" var="carro"
+		    		style="margin-top: 20px" emptyMessage="Nenhum carro encontrado." rows="5" lazy="true"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15">
 		    		<p:column headerText="Código" style="text-align: center; width: 100px">
 		    			<h:outputText value="#{carro.codigo}" />
 		    		</p:column>
