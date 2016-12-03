@@ -23,7 +23,7 @@ public class CarroDAO implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<Carro> buscarTodos() {
-		return entityManager.createQuery("from Carro").getResultList();
+		return entityManager.createNamedQuery("Carro.buscarTodos").getResultList();
 	}
 
 	@Transacional
@@ -38,8 +38,8 @@ public class CarroDAO implements Serializable {
 	}
 	
 	public Carro buscarCarroComAcessorios(Long codigo){
-		return (Carro) entityManager.createQuery("select c from Carro c JOIN c.acessorios a where c.codigo = ?")
-				.setParameter(1, codigo)
+		return entityManager.createNamedQuery("Carro.buscarCarroComAcessorios", Carro.class)
+				.setParameter("codigo", codigo)
 				.getSingleResult();
 	}
 }
