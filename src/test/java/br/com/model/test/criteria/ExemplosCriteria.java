@@ -1,6 +1,7 @@
 package br.com.model.test.criteria;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
@@ -26,6 +28,7 @@ import br.com.model.modelo.Carro;
 import br.com.model.modelo.Carro_;
 import br.com.model.modelo.ModeloCarro;
 import br.com.model.modelo.ModeloCarro_;
+import br.com.model.modelo.Motorista;
 
 public class ExemplosCriteria {
 
@@ -90,7 +93,6 @@ public class ExemplosCriteria {
 		List<Object[]> resultado = query.getResultList();
 		
 		resultado.forEach(r -> System.out.println("Placa: " + r[0] + " Valores: " + r[1]));
-		
 	}
 	
 	@Test
@@ -100,13 +102,13 @@ public class ExemplosCriteria {
 		
 		Root<Carro> carro = criteriaQuery.from(Carro.class);
 		criteriaQuery.multiselect(carro.get("placa").alias("placaDoCarro"),
-								 carro.get("valorDiaria").alias("valorDaDiaria"));
+								  carro.get("valorDiaria").alias("valorDaDiaria"));
 		
 		TypedQuery<Tuple> query = entityManager.createQuery(criteriaQuery);
 		List<Tuple> resultado = query.getResultList();
 		
 		resultado.forEach(r -> System.out.println("Placa " + r.get("placaDoCarro")
-												 + " Valor da diaria: " + r.get("valorDaDiaria")));
+												 +" Valor da diaria: " + r.get("valorDaDiaria")));
 	}
 	
 	@Test
@@ -216,7 +218,7 @@ public class ExemplosCriteria {
 		CriteriaQuery<Carro> criteriaQuery = builder.createQuery(Carro.class);
 		
 		Root<Carro> carro = criteriaQuery.from(Carro.class);
-		Join<Carro, ModeloCarro> modelo = (Join) carro.fetch(Carro_.modelo);
+		Join<Carro, ModeloCarro> modelo = (Join)carro.fetch(Carro_.modelo);
 		
 		criteriaQuery.select(carro);
 		criteriaQuery.where(builder.equal(modelo.get(ModeloCarro_.descricao), "Civic"));
@@ -226,5 +228,31 @@ public class ExemplosCriteria {
 		
 		resultado.forEach(r -> System.out.println(r.getPlaca() + " - " + r.getModelo().getDescricao()));
 		
+	}
+	
+	@Test
+	public void motoristasQueMaisAlugaramCarrosNoUltimoMes() {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Tuple> criteriaQuery = builder.createQuery(Tuple.class);
+		
+		Root<Aluguel> aluguel = criteriaQuery.from(Aluguel.class);
+		
+		Expression<Integer> month = builder.function("month", Integer.class, aluguel.<Calendar>get("dataPedido"));
+		Expression<Integer> year = builder.function("year", Integer.class, aluguel.<Calendar>get("dataPedido"));
+
+		Expression<Integer> monthToday = builder.function("month", Integer.class, builder.currentDate());
+		Expression<Integer> yearToday = builder.function("year", Integer.class, builder.currentDate());
+	
+		criteriaQuery.multiselect(aluguel.get("motorista").alias("motorista"), builder.count(aluguel).alias("aluguel"));
+		criteriaQuery.where(builder.equal(month, monthToday), builder.equal(year, yearToday));
+
+		criteriaQuery.groupBy(aluguel.get("motorista"));
+
+		TypedQuery<Tuple> query = entityManager.createQuery(criteriaQuery);
+		query.setMaxResults(1);
+		List<Tuple> tuples = query.getResultList();
+		
+		tuples.forEach(t -> System.out.println("Motorista: " + ((Motorista)t.get("motorista")).getNome() + " - " 
+															 +  "Aluguéis: " + t.get("aluguel")));
 	}
 }
