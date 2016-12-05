@@ -70,4 +70,18 @@ public class ExemplosCriteria {
 		System.out.println("Soma de todos os alugueis: " + total);
 	}
 	
+	@Test
+	public void resultadosComplexos(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Object[]> criteriaQuery = builder.createQuery(Object[].class);
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		criteriaQuery.multiselect(carro.get("placa"), carro.get("valorDiaria"));
+		
+		TypedQuery<Object[]> query = entityManager.createQuery(criteriaQuery);
+		List<Object[]> resultado = query.getResultList();
+		
+		resultado.forEach(r -> System.out.println("Placa: " + r[0] + " Valores: " + r[1]));
+		
+	}
 }
