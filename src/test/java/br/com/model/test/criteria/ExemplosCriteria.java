@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -83,5 +84,36 @@ public class ExemplosCriteria {
 		
 		resultado.forEach(r -> System.out.println("Placa: " + r[0] + " Valores: " + r[1]));
 		
+	}
+	
+	@Test
+	public void resultadoTupla(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Tuple> criteriaQuery = builder.createTupleQuery();
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		criteriaQuery.multiselect(carro.get("placa").alias("placaDoCarro"),
+								 carro.get("valorDiaria").alias("valorDaDiaria"));
+		
+		TypedQuery<Tuple> query = entityManager.createQuery(criteriaQuery);
+		List<Tuple> resultado = query.getResultList();
+		
+		resultado.forEach(r -> System.out.println("Placa " + r.get("placaDoCarro")
+												 + " Valor da diaria: " + r.get("valorDaDiaria")));
+	}
+	
+	@Test
+	public void resultadoConstrutores(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<PrecoCarro> criteriaQuery = builder.createQuery(PrecoCarro.class);
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		criteriaQuery.select(builder.construct(PrecoCarro.class,carro.get("placa"), carro.get("valorDiaria")));
+		
+		TypedQuery<PrecoCarro> query = entityManager.createQuery(criteriaQuery);
+		List<PrecoCarro> resultado = query.getResultList();
+		
+		resultado.forEach(r -> System.out.println("Placa " + r.getPlaca()
+		 + " Valor da diaria: " + r.getValor()));
 	}
 }
