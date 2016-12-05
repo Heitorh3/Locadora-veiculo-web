@@ -14,7 +14,9 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
+import org.hibernate.criterion.Subqueries;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -171,6 +173,40 @@ public class ExemplosCriteria {
 		List<Carro> resultado = query.getResultList();
 		
 		resultado.forEach(r -> System.out.println(r.getPlaca() + " - " + r.getModelo().getDescricao()));
+	}
+	
+	@Test		//Subqueries
+	public void mediaDasDiariasDosCarros(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Double> criteriaQuery = builder.createQuery(Double.class);
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		criteriaQuery.select(builder.avg(carro.<Double>get("valorDiaria")));
+		
+		TypedQuery<Double> query = entityManager.createQuery(criteriaQuery);
+		Double resultado = query.getSingleResult();
+		
+		System.out.println("Média " + resultado);
+	}
+	
+	@Test
+	public void carrosComValoresAcimaDaMedia(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Carro> criteriaQuery = builder.createQuery(Carro.class);
+		Subquery<Double> subquery = criteriaQuery.subquery(Double.class);
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		Root<Carro> carroSubQuery = subquery.from(Carro.class);
+		
+		subquery.select(builder.avg(carro.<Double>get("valorDiaria")));
+		
+		criteriaQuery.select(carro);
+		criteriaQuery.where(builder.greaterThanOrEqualTo(carro.get("valorDiaria"), subquery));
+		
+		TypedQuery<Carro> query = entityManager.createQuery(criteriaQuery);
+		List<Carro> resultado = query.getResultList();
+		
+		resultado.forEach(r -> System.out.println(r.getPlaca() + " - " + r.getValorDiaria()));
 	}
 	
 }
