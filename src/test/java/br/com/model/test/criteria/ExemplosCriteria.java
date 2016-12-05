@@ -16,7 +16,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
-import org.hibernate.criterion.Subqueries;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -24,7 +23,9 @@ import org.junit.Test;
 
 import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.Carro;
+import br.com.model.modelo.Carro_;
 import br.com.model.modelo.ModeloCarro;
+import br.com.model.modelo.ModeloCarro_;
 
 public class ExemplosCriteria {
 
@@ -209,4 +210,21 @@ public class ExemplosCriteria {
 		resultado.forEach(r -> System.out.println(r.getPlaca() + " - " + r.getValorDiaria()));
 	}
 	
+	@Test
+	public void exemploMetamodel(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Carro> criteriaQuery = builder.createQuery(Carro.class);
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		Join<Carro, ModeloCarro> modelo = (Join) carro.fetch(Carro_.modelo);
+		
+		criteriaQuery.select(carro);
+		criteriaQuery.where(builder.equal(modelo.get(ModeloCarro_.descricao), "Civic"));
+		
+		TypedQuery<Carro> query = entityManager.createQuery(criteriaQuery);
+		List<Carro> resultado = query.getResultList();
+		
+		resultado.forEach(r -> System.out.println(r.getPlaca() + " - " + r.getModelo().getDescricao()));
+		
+	}
 }
