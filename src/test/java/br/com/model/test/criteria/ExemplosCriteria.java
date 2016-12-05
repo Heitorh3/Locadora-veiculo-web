@@ -10,6 +10,7 @@ import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.junit.After;
@@ -115,5 +116,23 @@ public class ExemplosCriteria {
 		
 		resultado.forEach(r -> System.out.println("Placa " + r.getPlaca()
 		 + " Valor da diaria: " + r.getValor()));
+	}
+	
+	@Test
+	public void exemploFuncoes(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Carro> criteriaQuery = builder.createQuery(Carro.class);
+		
+		Root<Carro> carro = criteriaQuery.from(Carro.class);
+		Predicate predicate = builder.equal(builder.upper(carro.<String>get("cor")), "Prata".toUpperCase());
+		
+		criteriaQuery.select(carro);
+		criteriaQuery.where(predicate);
+		
+		TypedQuery<Carro> query = entityManager.createQuery(criteriaQuery);
+		List<Carro> resultado = query.getResultList();
+		
+		
+		resultado.forEach(r -> System.out.println(r.getCor() + " - " + r.getPlaca()));
 	}
 }
