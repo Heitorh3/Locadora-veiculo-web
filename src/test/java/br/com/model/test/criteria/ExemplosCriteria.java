@@ -1,5 +1,6 @@
 package br.com.model.test.criteria;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.Carro;
 
 public class ExemplosCriteria {
@@ -30,7 +32,7 @@ public class ExemplosCriteria {
 	
 	@Before
 	public void setUp(){
-		this.entityManager= factory.createEntityManager();
+		this.entityManager = factory.createEntityManager();
 	}
 	
 	@After
@@ -52,4 +54,20 @@ public class ExemplosCriteria {
 		placas.forEach(p -> System.out.println(p));
 		
 	}
+	
+	@Test
+	public void funcoesDeAgregacao(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<BigDecimal> criteriaQuery = builder.createQuery(BigDecimal.class);
+		
+		Root<Aluguel> alguel = criteriaQuery.from(Aluguel.class);
+		criteriaQuery.select(builder.sum(alguel.<BigDecimal>get("valorTotal")));
+		
+		TypedQuery<BigDecimal> query = entityManager.createQuery(criteriaQuery);
+		
+		BigDecimal total = query.getSingleResult();
+		
+		System.out.println("Soma de todos os alugueis: " + total);
+	}
+	
 }
