@@ -255,4 +255,19 @@ public class ExemplosCriteria {
 		tuples.forEach(t -> System.out.println("Motorista: " + ((Motorista)t.get("motorista")).getNome() + " - " 
 															 +  "Aluguéis: " + t.get("aluguel")));
 	}
+	
+	@Test
+	public void aluguelComMaiorValor(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<BigDecimal> criteriaQuery = builder.createQuery(BigDecimal.class);
+		
+		Root<Aluguel> aluguel = criteriaQuery.from(Aluguel.class);
+		
+		criteriaQuery.select(builder.max(aluguel.get("valorTotal")));
+		TypedQuery<BigDecimal> query = entityManager.createQuery(criteriaQuery);
+		
+		BigDecimal resultado = query.getSingleResult();
+		
+		System.out.println("Maior Aluguel: " + resultado);
+	}
 }
