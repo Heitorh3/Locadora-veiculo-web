@@ -21,13 +21,13 @@
     		
     		<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
 				<p:outputLabel value="Data da entrega" for="dataEntrega"/>
-	    		<p:calendar id="dataEntrega" size="20" value="#{pesquisaAluguelBean.aluguel.dataEntrega}" pattern="dd/MM/yyyy"/>
+	    		<p:calendar id="dataEntrega" size="20" value="#{pesquisaAluguelBean.filtroAluguel.dataEntrega}" pattern="dd/MM/yyyy"/>
 	    		
 	    		<p:outputLabel value="Data da devolução" for="dataDevolucao"/>
-	    		<p:calendar id="dataDevolucao" size="20" value="#{pesquisaAluguelBean.aluguel.dataDevolucao}" pattern="dd/MM/yyyy"/>
+	    		<p:calendar id="dataDevolucao" size="20" value="#{pesquisaAluguelBean.filtroAluguel.dataDevolucao}" pattern="dd/MM/yyyy"/>
 			    
 			    <p:outputLabel value="Modelo do carro" for="modeloCarro"/>
-			    <p:selectOneMenu id="modeloCarro" value="#{pesquisaAluguelBean.carro.modelo}">
+			    <p:selectOneMenu id="modeloCarro" value="#{pesquisaAluguelBean.filtroAluguel.carro.modelo}">
 	    			<f:selectItem itemLabel="Selecione o modelo" />
 	    			<f:selectItems value="#{pesquisaAluguelBean.modelosCarros}" var="modelosCarros" 
 						itemLabel="#{modelosCarros.descricao}" itemValue="#{modelosCarros}"/>

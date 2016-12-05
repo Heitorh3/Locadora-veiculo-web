@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import br.com.model.dao.AluguelDAO;
 import br.com.model.dao.ModeloCarroDAO;
+import br.com.model.filter.FiltroAluguel;
 import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.Carro;
 import br.com.model.modelo.ModeloCarro;
@@ -22,8 +23,9 @@ public class PesquisaAluguelBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private List<ModeloCarro> modelosCarros;
-	private Aluguel aluguel;
-	private Carro carro;
+	
+	@Inject
+	private FiltroAluguel filtroAluguel;
 	
 	private List<Aluguel> alugueis;
 	
@@ -35,38 +37,30 @@ public class PesquisaAluguelBean implements Serializable {
 	
 	@PostConstruct
 	public void inicializar() {
-		this.aluguel = new Aluguel();
-		this.carro = new Carro();
+		this.filtroAluguel.setCarro(new Carro());
 		this.modelosCarros = this.modeloCarroDAO.buscarTodos();
 		
 		this.alugueis = new ArrayList<>();
 	}
 	
 	public void pesquisar() {
-		this.alugueis = aluguelDAO.buscarPorDataDeEntregaEModeloCarro(this.aluguel.getDataEntrega(),
-																		this.aluguel.getDataDevolucao(), this.carro.getModelo());
+		this.alugueis = aluguelDAO.buscarPorDataDeEntregaEModeloCarro(filtroAluguel);
 	}
 	
 	public List<ModeloCarro> getModelosCarros() {
 		return modelosCarros;
 	}
 
-	public Aluguel getAluguel() {
-		return aluguel;
-	}
-	public void setAluguel(Aluguel aluguel) {
-		this.aluguel = aluguel;
-	}
-
-	public Carro getCarro() {
-		return carro;
-	}
-	public void setCarro(Carro carro) {
-		this.carro = carro;
-	}
-
 	public List<Aluguel> getAlugueis() {
 		return alugueis;
+	}
+
+	public FiltroAluguel getFiltroAluguel() {
+		return filtroAluguel;
+	}
+
+	public void setFiltroAluguel(FiltroAluguel filtroAluguel) {
+		this.filtroAluguel = filtroAluguel;
 	}
 
 }
