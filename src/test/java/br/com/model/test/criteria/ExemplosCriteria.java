@@ -24,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.model.modelo.Aluguel;
+import br.com.model.modelo.ApoliceSeguro;
 import br.com.model.modelo.Carro;
 import br.com.model.modelo.Carro_;
 import br.com.model.modelo.ModeloCarro;
@@ -259,15 +260,26 @@ public class ExemplosCriteria {
 	@Test
 	public void aluguelComMaiorValor(){
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<BigDecimal> criteriaQuery = builder.createQuery(BigDecimal.class);
-		
+		CriteriaQuery<Aluguel> criteriaQuery = builder.createQuery(Aluguel.class);
+		Subquery<Double> subquery = criteriaQuery.subquery(Double.class);
+				
 		Root<Aluguel> aluguel = criteriaQuery.from(Aluguel.class);
+		Root<Aluguel> aluguelSubQuery = subquery.from(Aluguel.class);
 		
-		criteriaQuery.select(builder.max(aluguel.get("valorTotal")));
-		TypedQuery<BigDecimal> query = entityManager.createQuery(criteriaQuery);
+		Join<Aluguel, ApoliceSeguro> seguro = (Join)aluguel.fetch("apoliceSeguro");
+		Join<Aluguel, Motorista> motorista = (Join)aluguel.fetch("motorista");
+		Join<Aluguel, Carro> carro = (Join)aluguel.fetch("carro");
 		
-		BigDecimal resultado = query.getSingleResult();
+		subquery.select(builder.max(aluguelSubQuery.<Double>get("valorTotal")));
 		
-		System.out.println("Maior Aluguel: " + resultado);
+		criteriaQuery.select(aluguel);
+		criteriaQuery.where(builder.equal(aluguel.get("valorTotal"), subquery));
+		
+		TypedQuery<Aluguel> query = entityManager.createQuery(criteriaQuery);
+		
+		List<Aluguel> resultado = query.getResultList();
+		
+		resultado.forEach(r -> System.out.println("Maior Aluguel: " + r.getValorTotal()));
+		
 	}
 }
