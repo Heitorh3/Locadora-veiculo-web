@@ -277,9 +277,9 @@ public class ExemplosCriteria {
 		
 		TypedQuery<Aluguel> query = entityManager.createQuery(criteriaQuery);
 		
-		List<Aluguel> resultado = query.getResultList();
+		Aluguel resultado = query.getSingleResult();
 		
-		resultado.forEach(r -> System.out.println("Maior Aluguel: " + r.getValorTotal()));
+		System.out.println("Maior Aluguel: " + resultado.getValorTotal());
 		
 	}
 }
