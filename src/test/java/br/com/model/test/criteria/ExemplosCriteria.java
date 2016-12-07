@@ -1,7 +1,9 @@
 package br.com.model.test.criteria;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Order;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
@@ -280,6 +283,38 @@ public class ExemplosCriteria {
 		Aluguel resultado = query.getSingleResult();
 		
 		System.out.println("Maior Aluguel: " + resultado.getValorTotal());
+		
+	}
+	
+	@Test
+	public void maiorAluguelDoMes(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Aluguel> criteriaQuery = builder.createQuery(Aluguel.class);
+		Subquery<Double> subquery = criteriaQuery.subquery(Double.class);
+		
+		Root<Aluguel> aluguel = criteriaQuery.from(Aluguel.class);
+		Root<Aluguel> aluguelSubQuery = subquery.from(Aluguel.class);
+		
+		List<Predicate> predicates = new ArrayList<>();
+		ParameterExpression<Date> dataInicial = builder.parameter(Date.class, "dataInicial");
+		ParameterExpression<Date> dataFinal = builder.parameter(Date.class, "dataFinal");
+		predicates.add(builder.between(aluguelSubQuery.get("dataPedido"), dataInicial, dataFinal));
+		
+		subquery.select(builder.max(aluguelSubQuery.<Double>get("valorTotal")));
+		subquery.where(predicates.toArray(new Predicate[0]));
+		
+		criteriaQuery.select(aluguel);
+		criteriaQuery.where(builder.equal(aluguel.<Double>get("valorTotal"), subquery));
+		
+		
+		TypedQuery<Aluguel> query = entityManager.createQuery(criteriaQuery);
+		
+		query.setParameter("dataInicial", "2016-12-01");
+		query.setParameter("dataFinal", "2016-12-07");
+		
+		Aluguel resultado = query.getSingleResult();
+		
+		System.out.println("Maior Aluguel do mês: " + resultado.getValorTotal());
 		
 	}
 }
