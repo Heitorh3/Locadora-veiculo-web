@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TemporalType;
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -309,10 +310,18 @@ public class ExemplosCriteria {
 		
 		TypedQuery<Aluguel> query = entityManager.createQuery(criteriaQuery);
 		
-		query.setParameter("dataInicial", "2016-12-01");
-		query.setParameter("dataFinal", "2016-12-07");
+		Calendar finalDate = Calendar.getInstance();
+				 finalDate.set(2016, 12,  07); 
+				 
+		Calendar initialDate = Calendar.getInstance();
+				 initialDate.set(2016, 12,  01); 
+		
+		query.setParameter("dataInicial", initialDate.getTime(), TemporalType.DATE);
+		query.setParameter("dataFinal", finalDate.getTime(),TemporalType.DATE);
 		
 		Aluguel resultado = query.getSingleResult();
+		
+		System.out.println( initialDate.getTime());
 		
 		System.out.println("Maior Aluguel do mês: " + resultado.getValorTotal());
 		
