@@ -1,7 +1,6 @@
 package br.com.model.test.criteria;
 
 import java.math.BigDecimal;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -324,5 +323,29 @@ public class ExemplosCriteria {
 		
 		resultado.forEach(r->System.out.println("Aluguel de maior valor do mês: " + r.getValorTotal()));
 		
+	}
+	
+	@Test
+	public void ConsultaMotoristaComMaisAluguel(){
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Tuple> criteriaQuery = builder.createQuery(Tuple.class);
+		
+		Root<Aluguel> aluguel = criteriaQuery.from(Aluguel.class);
+		
+		criteriaQuery.multiselect(aluguel.<String>get("motorista").get("codigo").alias("codigo"),
+								  aluguel.<String>get("motorista").get("nome").alias("nome"),
+								  aluguel.<String>get("motorista").get("cpf").alias("cpf"),
+								  builder.count(aluguel));
+		
+		criteriaQuery.groupBy(aluguel.get("motorista").get("cpf"));
+		
+		Order order = builder.desc(builder.count(aluguel));
+		criteriaQuery.orderBy(order);
+
+		
+		TypedQuery<Tuple> query = entityManager.createQuery(criteriaQuery);
+		List<Tuple> tuples = query.getResultList();
+		
+		tuples.forEach(t -> System.out.println("Código: " + t.get("codigo") + " Nome: " + t.get("cpf") + " - " + t.get("nome")));
 	}
 }
