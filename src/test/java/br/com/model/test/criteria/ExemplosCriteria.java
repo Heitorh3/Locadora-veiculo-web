@@ -344,8 +344,10 @@ public class ExemplosCriteria {
 
 		
 		TypedQuery<Tuple> query = entityManager.createQuery(criteriaQuery);
-		List<Tuple> tuples = query.getResultList();
+		query.setMaxResults(1);
 		
-		tuples.forEach(t -> System.out.println("Código: " + t.get("codigo") + " Nome: " + t.get("cpf") + " - " + t.get("nome")));
+		Tuple tuples = query.getSingleResult();
+		
+		System.out.println("Código: " + tuples.get("codigo") + " Nome: " + tuples.get("cpf") + " - " + tuples.get("nome"));
 	}
 }
