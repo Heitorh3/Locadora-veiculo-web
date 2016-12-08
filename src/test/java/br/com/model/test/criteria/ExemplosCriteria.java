@@ -1,6 +1,7 @@
 package br.com.model.test.criteria;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -311,19 +312,17 @@ public class ExemplosCriteria {
 		TypedQuery<Aluguel> query = entityManager.createQuery(criteriaQuery);
 		
 		Calendar finalDate = Calendar.getInstance();
-				 finalDate.set(2016, 12,  07); 
+				 finalDate.set(2016, 12, 7); 
 				 
 		Calendar initialDate = Calendar.getInstance();
-				 initialDate.set(2016, 12,  01); 
+				 initialDate.set(2016, 12, 1); 
 		
 		query.setParameter("dataInicial", initialDate.getTime(), TemporalType.DATE);
 		query.setParameter("dataFinal", finalDate.getTime(),TemporalType.DATE);
 		
-		Aluguel resultado = query.getSingleResult();
+		List<Aluguel> resultado = query.getResultList();
 		
-		System.out.println( initialDate.getTime());
-		
-		System.out.println("Maior Aluguel do mês: " + resultado.getValorTotal());
+		resultado.forEach(r->System.out.println("Aluguel de maior valor do mês: " + r.getValorTotal()));
 		
 	}
 }
