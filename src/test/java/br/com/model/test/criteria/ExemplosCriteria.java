@@ -348,6 +348,6 @@ public class ExemplosCriteria {
 		
 		Tuple tuples = query.getSingleResult();
 		
-		System.out.println("Código: " + tuples.get("codigo") + " Nome: " + tuples.get("cpf") + " - " + tuples.get("nome") + " Quantidade: " + tuples.get("qtd"));
+		System.out.println("Código: " + tuples.get("codigo") + " Nome: " + tuples.get("nome") + " Quantidade: " + tuples.get("qtd"));
 	}
 }
