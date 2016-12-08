@@ -335,7 +335,7 @@ public class ExemplosCriteria {
 		criteriaQuery.multiselect(aluguel.<String>get("motorista").get("codigo").alias("codigo"),
 								  aluguel.<String>get("motorista").get("nome").alias("nome"),
 								  aluguel.<String>get("motorista").get("cpf").alias("cpf"),
-								  builder.count(aluguel));
+								  builder.count(aluguel).alias("qtd"));
 		
 		criteriaQuery.groupBy(aluguel.get("motorista").get("cpf"));
 		
@@ -348,6 +348,6 @@ public class ExemplosCriteria {
 		
 		Tuple tuples = query.getSingleResult();
 		
-		System.out.println("Código: " + tuples.get("codigo") + " Nome: " + tuples.get("cpf") + " - " + tuples.get("nome"));
+		System.out.println("Código: " + tuples.get("codigo") + " Nome: " + tuples.get("cpf") + " - " + tuples.get("nome") + " Quantidade: " + tuples.get("qtd"));
 	}
 }
