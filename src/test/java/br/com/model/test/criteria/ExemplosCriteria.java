@@ -350,4 +350,13 @@ public class ExemplosCriteria {
 		
 		System.out.println("Código: " + tuples.get("codigo") + " Nome: " + tuples.get("nome") + " Quantidade: " + tuples.get("qtd"));
 	}
+	
+	@Test
+	public void exclusaoDeObjetosOrfaos(){
+		Carro carro = this.entityManager.find(Carro.class, 1L);
+		
+		this.entityManager.getTransaction().begin();
+		carro.getAlugueis().remove(0);
+		this.entityManager.getTransaction().commit();
+	}
 }
