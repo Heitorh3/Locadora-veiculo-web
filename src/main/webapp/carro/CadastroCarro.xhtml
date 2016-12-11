@@ -20,16 +20,16 @@
     	
 	    	<p:toolbar style="margin-top: 20px">
 	    		<p:toolbarGroup>
-	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroCarroBean.salvar}" update="frmCadastro"/>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroCarroBean.salvar}" update="frmCadastro" ajax="false"/>
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
 					<p:button value="Pesquisa" outcome="/carro/PesquisaCarros.xhtml"/>
 				</p:toolbarGroup>
-	    	</p:toolbar>
+	    	</p:toolbar> 
 	    	
 			<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
 				<p:outputLabel value="Código" for="codigo"/>
-			    <p:inputText id="codigo" size="20" maxlength="20" value="#{cadastroCarroBean.carro.codigo}" readonly="true"  ajax="false"/>
+			    <p:inputText id="codigo" size="20" maxlength="20" value="#{cadastroCarroBean.carro.codigo}" readonly="true"/>
 			    
 			    <p:outputLabel value="Modelo Carro" for="modeloCarro"/>
 	    		<p:selectOneMenu id="modeloCarro" value="#{cadastroCarroBean.carro.modelo}">
