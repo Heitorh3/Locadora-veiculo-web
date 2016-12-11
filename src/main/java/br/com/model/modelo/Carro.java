@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -98,7 +99,7 @@ public class Carro  implements Serializable{
 		this.acessorios = acessorios;
 	}
 	
-	@OneToMany(mappedBy = "carro")
+	@OneToMany(mappedBy = "carro", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public List<Aluguel> getAlugueis() {
 		return alugueis;
 	}
