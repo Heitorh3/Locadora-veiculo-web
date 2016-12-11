@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -42,6 +43,7 @@ public class Carro  implements Serializable{
 	private List<Aluguel>alugueis;
 	private Date dataCriacao;
 	private Date dataModificacao;
+	private byte[] foto;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,6 +124,7 @@ public class Carro  implements Serializable{
 		this.dataModificacao = dataModificacao;
 	}
 	
+	
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacaoAlteracao(){
@@ -129,6 +132,14 @@ public class Carro  implements Serializable{
 		if(this.dataCriacao == null){
 			this.dataCriacao = new Date();
 		}
+	}
+	
+	@Lob
+	public byte[] getFoto() {
+		return foto;
+	}
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
 	}
 	
 	@Override
@@ -154,6 +165,5 @@ public class Carro  implements Serializable{
 			return false;
 		return true;
 	}
-	
 	
 }
