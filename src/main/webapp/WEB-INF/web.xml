@@ -50,11 +50,12 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<!-- 
 	<context-param>
 	  <param-name>primefaces.UPLOADER</param-name>
 	  <param-value>auto</param-value>
 	</context-param>
-
+	
 	<filter>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
@@ -63,7 +64,7 @@
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<servlet-name>Faces Servlet</servlet-name>
 	</filter-mapping>
-
+	-->
 	<mime-mapping>
 		<extension>woff</extension>
 		<mime-type>application/font-woff</mime-type>

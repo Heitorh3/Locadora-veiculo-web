@@ -54,7 +54,6 @@ public class CadastroCarroBean implements Serializable {
 	public void salvar() {
 		try {
 			if (this.uploadedFile != null) {
-				System.out.println("FOTO " + uploadedFile);
 				this.carro.setFoto(this.uploadedFile.getContents());
 			}
 			this.cadastroCarroService.salvar(carro);
@@ -96,5 +95,4 @@ public class CadastroCarroBean implements Serializable {
 	public void setUploadedFile(UploadedFile uploadedFile) {
 		this.uploadedFile = uploadedFile;
 	}
-
 }
