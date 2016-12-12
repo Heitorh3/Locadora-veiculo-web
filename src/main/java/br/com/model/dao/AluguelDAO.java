@@ -16,6 +16,10 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
 import br.com.model.filter.FiltroAluguel;
 import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.ModeloCarro;
@@ -99,6 +103,46 @@ public class AluguelDAO implements Serializable {
 		}
 		
 		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Aluguel>buscarPorDataDeEntregaEModeloCarroCriteria(FiltroAluguel filtroAluguel){
+		Session session = this.manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Aluguel.class);
+		
+		if(filtroAluguel.getDataEntrega()!= null){
+			criteria.add(Restrictions.between("dataEntrega", geraDataInicial(filtroAluguel.getDataEntrega()), 
+												geraDataFinal(filtroAluguel.getDataEntrega())));
+		}
+		if(filtroAluguel.getDataDevolucao() != null){
+			criteria.add(Restrictions.between("dataEntrega", geraDataInicial(filtroAluguel.getDataDevolucao()), 
+					geraDataFinal(filtroAluguel.getDataDevolucao())));
+		}
+		if(filtroAluguel.getCarro().getModelo() != null){
+			criteria.createAlias("carro", "c");
+			criteria.add(Restrictions.eq("c.modelo", filtroAluguel.getCarro().getModelo()));
+		}
+		return criteria.list();
+	}
+	
+	private Date geraDataInicial(Date dataEntrega) {
+		Calendar dataEntregaInicial = Calendar.getInstance();
+		dataEntregaInicial.setTime(dataEntrega);
+		dataEntregaInicial.set(Calendar.HOUR_OF_DAY, 0);
+		dataEntregaInicial.set(Calendar.MINUTE, 0);
+		dataEntregaInicial.set(Calendar.SECOND, 0);
+		
+		return dataEntregaInicial.getTime();
+	}
+	
+	private Date geraDataFinal(Date dataEntrega) {
+		Calendar dataEntregaFinal = Calendar.getInstance();
+		dataEntregaFinal.setTime(dataEntrega);
+		dataEntregaFinal.set(Calendar.HOUR_OF_DAY, 23);
+		dataEntregaFinal.set(Calendar.MINUTE, 59);
+		dataEntregaFinal.set(Calendar.SECOND, 59);
+		
+		return dataEntregaFinal.getTime();
 	}
 
 }
