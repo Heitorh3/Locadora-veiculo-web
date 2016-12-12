@@ -1,11 +1,15 @@
 package br.com.model.test.criteria;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -21,6 +25,9 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import org.junit.After;
 import org.junit.Before;
@@ -358,5 +365,17 @@ public class ExemplosCriteria {
 		this.entityManager.getTransaction().begin();
 		carro.getAlugueis().remove(0);
 		this.entityManager.getTransaction().commit();
+	}
+	
+	@Test
+	public void buscaFoto() throws IOException {
+		Carro carro = entityManager.find(Carro.class, 3L);
+			
+		if (carro.getFoto() != null) {
+			BufferedImage img = ImageIO.read(new ByteArrayInputStream(carro.getFoto()));
+			JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(img)));
+		} else {
+			System.out.println("Carro não possui foto.");
+		}
 	}
 }
