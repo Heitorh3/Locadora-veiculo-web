@@ -95,4 +95,5 @@ public class CadastroCarroBean implements Serializable {
 	public void setUploadedFile(UploadedFile uploadedFile) {
 		this.uploadedFile = uploadedFile;
 	}
+
 }

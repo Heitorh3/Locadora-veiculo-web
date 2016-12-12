@@ -43,6 +43,13 @@
  		    				<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" /> 
  		    			</p:commandButton> 
  		    		</p:column> 
+ 		    		
+ 		    		<p:column headerText="Foto" style="width: 100px; text-align: center"> 
+ 		    			<p:commandButton icon="ui-icon-extlink" title="Foto" action="#{pesquisaCarroBean.buscarCarroComAcessorios}" 
+ 		    					process="@this" oncomplete="PF('mostraImagen').show()" update=":frmPesquisa:mostraImagenDialog"> 
+ 		    				<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" /> 
+ 		    			</p:commandButton> 
+ 		    		</p:column> 
 		    		
 		    		<p:column style="width: 100px; text-align: center">
 		    			<p:button outcome="CadastroCarro" icon="ui-icon-pencil" title="Editar">
@@ -69,6 +76,10 @@
     				#{acessorio.descricao}
     			</p:dataList>
     			<h:outputText value="Nenhum acessório" rendered="#{empty pesquisaCarroBean.carroSelecionado.acessorios}"/>
+			</p:dialog>
+			
+			<p:dialog id="mostraImagenDialog" header="Imagen" widgetVar="mostraImagen" modal="true">
+    			<p:graphicImage value="#{pesquisaCarroBean.content}"/>
 			</p:dialog>
 	    	
 	    </h:form>

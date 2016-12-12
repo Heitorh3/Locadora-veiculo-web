@@ -1,13 +1,17 @@
 package br.com.model.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import br.com.model.dao.CarroDAO;
 import br.com.model.lazy.LazyCarroDataModel;
@@ -16,7 +20,7 @@ import br.com.model.service.NegocioException;
 import br.com.model.util.jsf.FacesUtil;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class PesquisaCarroBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +33,8 @@ public class PesquisaCarroBean implements Serializable {
 	private Carro carroSelecionado;
 	
 	private LazyCarroDataModel lazyCarros;
+	
+	private DefaultStreamedContent content;
 	
 	public List<Carro> getCarros() {
 		return carros;
@@ -53,6 +59,15 @@ public class PesquisaCarroBean implements Serializable {
 	
 	public void buscarCarroComAcessorios(){
 		this.carroSelecionado = carroDAO.buscarCarroComAcessorios(carroSelecionado.getCodigo());
+	}
+	
+	public StreamedContent getContent(){
+		if(this.carroSelecionado != null){
+			byte[] imagem = this.carroSelecionado.getFoto();
+			content = new DefaultStreamedContent(new ByteArrayInputStream(imagem), "image/png", "teste.png");
+			return content;
+		}
+		return null;
 	}
 
 	@PostConstruct
