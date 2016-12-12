@@ -17,11 +17,11 @@ public class CadastroCarroService implements Serializable {
 	
 	@Transacional
 	public void salvar(Carro carro) throws NegocioException {
-		
+		/*
 		if (carro.getPlaca() == null || carro.getPlaca().trim().equals("")) {
 			throw new NegocioException("A placa é obrigatória");
 		}
-		
+		*/
 		this.carroDAO.salvar(carro);
 	}
 

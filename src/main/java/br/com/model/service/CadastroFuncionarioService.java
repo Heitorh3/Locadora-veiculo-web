@@ -17,10 +17,10 @@ public class CadastroFuncionarioService implements Serializable{
 	
 	@Transacional
 	public void salvar(Funcionario funcionario)throws NegocioException {
-		if (funcionario.getNome() == null || funcionario.getNome().trim().equals("")) { 
+		/*if (funcionario.getNome() == null || funcionario.getNome().trim().equals("")) { 
 			throw new NegocioException("O nome do funcionario é obrigatório");
 		}
-		
+		*/
 		funcionarioDAO.salvar(funcionario);
 	}
 

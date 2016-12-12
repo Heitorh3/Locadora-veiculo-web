@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Fabricante implements Serializable{
 
@@ -27,6 +29,7 @@ public class Fabricante implements Serializable{
 		this.codigo = codigo;
 	}
 	
+	@NotBlank(message = "O nome do fabricante é obrigatório")
 	public String getNome() {
 		return nome;
 	}

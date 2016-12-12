@@ -19,10 +19,10 @@ public class CadastroAluguelService implements Serializable {
 	@Transacional
 	public void salvar(Aluguel aluguel) throws NegocioException {
 		
-		if (aluguel.getCarro() == null) {
+		/*if (aluguel.getCarro() == null) {
 			throw new NegocioException("O carro é obrigatório");
 		}
-		
+		*/
 		aluguel.setDataPedido(Calendar.getInstance());
 		
 		this.aluguelDAO.salvar(aluguel);

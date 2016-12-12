@@ -16,6 +16,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TIPO_PESSOA", discriminatorType = DiscriminatorType.STRING)
@@ -36,6 +38,7 @@ public abstract class Pessoa {
 		this.codigo = codigo;
 	}
 	
+	@NotBlank(message = "O nome é obrigatório")
 	public String getNome() {
 		return nome;
 	}

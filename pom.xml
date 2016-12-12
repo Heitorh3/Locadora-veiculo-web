@@ -242,6 +242,13 @@
 			<scope>test</scope>
 		</dependency>
 		 
+		 <!-- Hibernate validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.1.2.Final</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<!-- Repositorio PrimeFaces -->

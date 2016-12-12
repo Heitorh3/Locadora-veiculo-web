@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Aluguel implements Serializable {
@@ -46,6 +47,7 @@ public class Aluguel implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 	
+	@NotNull(message = "O carro e obrigatório")
 	@ManyToOne
 	@JoinColumn(name = "codigo_carro")
 	public Carro getCarro() {

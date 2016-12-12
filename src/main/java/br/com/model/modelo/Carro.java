@@ -25,6 +25,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Carro.buscarTodos", query = "SELECT c FROM Carro c INNER JOIN FETCH c.modelo"),
@@ -54,24 +56,29 @@ public class Carro  implements Serializable{
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
+	
+	@NotBlank(message = "A placa é obrigatória")
 	public String getPlaca() {
 		return placa;
 	}
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
+	
 	public String getCor() {
 		return cor;
 	}
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
+	
 	public String getChassi() {
 		return chassi;
 	}
 	public void setChassi(String chassi) {
 		this.chassi = chassi;
 	}
+	
 	public BigDecimal getValorDiaria() {
 		return valorDiaria;
 	}

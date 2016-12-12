@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @NamedQuery(name = "ModeloCarro.buscarTodos", query = "select mc  from ModeloCarro mc")
@@ -33,6 +36,7 @@ public class ModeloCarro implements Serializable{
 		this.codigo = codigo;
 	}
 	
+	@NotBlank(message = "O nome do modelo é obrigatório.")
 	public String getDescricao() {
 		return descricao;
 	}
@@ -40,6 +44,7 @@ public class ModeloCarro implements Serializable{
 		this.descricao = descricao;
 	}
 	
+	@NotNull(message = "O fabricante e obrigatório")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="codigo_fabricante")
 	public Fabricante getFabricante() {
