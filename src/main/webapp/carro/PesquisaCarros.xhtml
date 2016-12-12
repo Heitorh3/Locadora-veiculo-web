@@ -45,9 +45,8 @@
  		    		</p:column> 
  		    		
  		    		<p:column headerText="Foto" style="width: 100px; text-align: center"> 
- 		    			<p:commandButton icon="ui-icon-extlink" title="Foto" action="#{pesquisaCarroBean.buscarCarroComAcessorios}" 
- 		    					process="@this" oncomplete="PF('mostraImagen').show()" update=":frmPesquisa:mostraImagenDialog"> 
- 		    				<f:setPropertyActionListener target="#{pesquisaCarroBean.carroSelecionado}" value="#{carro}" /> 
+ 		    			<p:commandButton icon="ui-icon-extlink" title="Foto" process="@this" oncomplete="PF('mostraImagen').show()" update=":frmPesquisa:mostraImagenDialog"> 
+ 		    				<f:setPropertyActionListener target="#{fotoCarroBean.carroSelecionado}" value="#{carro}" /> 
  		    			</p:commandButton> 
  		    		</p:column> 
 		    		
@@ -73,13 +72,13 @@
 	    	<p:dialog id="mostraAcessoriosDialog" header="Acessórios" widgetVar="mostraAcessorios" modal="true">
     			<p:dataList value="#{pesquisaCarroBean.carroSelecionado.acessorios}" var="acessorio" itemType="disc"
     					rendered="#{not empty pesquisaCarroBean.carroSelecionado.acessorios}">
-    				#{acessorio.descricao}
+    								#{acessorio.descricao}
     			</p:dataList>
     			<h:outputText value="Nenhum acessório" rendered="#{empty pesquisaCarroBean.carroSelecionado.acessorios}"/>
 			</p:dialog>
 			
 			<p:dialog id="mostraImagenDialog" header="Imagen" widgetVar="mostraImagen" modal="true">
-    			<p:graphicImage value="#{pesquisaCarroBean.content}"/>
+    			<p:graphicImage value="#{fotoCarroBean.foto}"/>
 			</p:dialog>
 	    	
 	    </h:form>
