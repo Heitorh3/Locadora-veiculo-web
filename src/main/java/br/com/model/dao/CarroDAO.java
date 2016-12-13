@@ -9,12 +9,16 @@ import javax.persistence.EntityManager;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 
 import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.Carro;
+import br.com.model.modelo.util.TotalDeAlugueisPorCarro;
 import br.com.model.service.NegocioException;
 import br.com.model.util.jpa.Transacional;
 
@@ -84,6 +88,23 @@ public class CarroDAO implements Serializable {
 	    	.add(Restrictions.isNotNull("carro"));
 	    
 	    criteria.add(Property.forName("codigo").notIn(criteriaAluguel));
+	    
+		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TotalDeAlugueisPorCarro> buscarTotalAlugueisPorCarro() {
+		Session session = this.entityManager.unwrap(Session.class);
+	    Criteria criteria = session.createCriteria(Carro.class); 
+	    
+	    criteria.createAlias("alugueis", "a");
+	    
+	    ProjectionList pl = Projections.projectionList()
+	    					.add(Projections.groupProperty("placa").as("placa"))
+	    					.add(Projections.count("a.codigo").as("totalDeAlugueis"));
+	    criteria.setProjection(pl)
+	    		.addOrder(Order.desc("totalDeAlugueis"))
+	    		.setResultTransformer(Transformers.aliasToBean(TotalDeAlugueisPorCarro.class));
 	    
 		return criteria.list();
 	}
