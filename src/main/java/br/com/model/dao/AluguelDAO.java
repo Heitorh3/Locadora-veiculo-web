@@ -2,6 +2,7 @@ package br.com.model.dao;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +19,9 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.StandardBasicTypes;
 
 import br.com.model.filter.FiltroAluguel;
 import br.com.model.modelo.Aluguel;
@@ -36,6 +39,9 @@ public class AluguelDAO implements Serializable {
 		manager.merge(aluguel);
 	}
 
+	/*
+	 * Consulta utilizando a especificação JPA
+	 */
 	public List<Aluguel> buscarPorDataDeEntregaEModeloCarro(FiltroAluguel filtroAluguel) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Aluguel> criteriaQuery = builder.createQuery(Aluguel.class);
@@ -105,6 +111,9 @@ public class AluguelDAO implements Serializable {
 		return query.getResultList();
 	}
 	
+	/*
+	 * Consulta utilizando a implementação do Hibernate
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Aluguel>buscarPorDataDeEntregaEModeloCarroCriteria(FiltroAluguel filtroAluguel){
 		Session session = this.manager.unwrap(Session.class);
@@ -123,6 +132,16 @@ public class AluguelDAO implements Serializable {
 			criteria.add(Restrictions.eq("c.modelo", filtroAluguel.getCarro().getModelo()));
 		}
 		return criteria.list();
+	}
+	
+	public BigDecimal calcularTotalDoMesDe(int mes){
+		Session session = this.manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Aluguel.class);
+		
+		criteria.setProjection(Projections.sum("valorTotal"));
+		criteria.add(Restrictions.sqlRestriction("month(dataPedido) = ?", mes, StandardBasicTypes.INTEGER));
+		
+		return (BigDecimal)criteria.uniqueResult();
 	}
 	
 	private Date geraDataInicial(Date dataEntrega) {
