@@ -6,6 +6,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
+
+import br.com.model.modelo.Aluguel;
 import br.com.model.modelo.Carro;
 import br.com.model.service.NegocioException;
 import br.com.model.util.jpa.Transacional;
@@ -58,5 +66,28 @@ public class CarroDAO implements Serializable {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Carro> buscarCarrosNuncaAlugados() {
+		Session session = this.entityManager.unwrap(Session.class);
+	    Criteria criteria = session.createCriteria(Carro.class); 
+		/*
+		 * select * 
+  			from carro
+  			where codigo not in (
+  				select codigo_carro from aluguel 
+  					where codigo_carro is not null)
+		 */
+	    
+	    DetachedCriteria criteriaAluguel = DetachedCriteria.forClass(Aluguel.class)
+	    	.setProjection(Projections.property("carro"))
+	    	.add(Restrictions.isNotNull("carro"));
+	    
+	    criteria.add(Property.forName("codigo").notIn(criteriaAluguel));
+	    
+		return criteria.list();
+	}
+
+	
 	
 }
