@@ -11,11 +11,15 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/locadoradb"/> 
  			<property name="javax.persistence.jdbc.user" value="root"/> 
  			<property name="javax.persistence.jdbc.password" value="If07Nt13"/> 
- 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/> 
+ 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+ 			
+ 			<!-- none | drop-and-create | create | drop -->
+ 			<property name="javax.persistence.schema-generation.action" value="none"/> 
 
 			
 			<!-- validate | update | create | create-drop -->
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+			
 			
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
