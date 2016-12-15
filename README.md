@@ -1,4 +1,4 @@
-# Locadora-veiculo-web
+# Locadora de veiculos web
 
 # Configuração do DataSource no Apache tomcat
 
