@@ -16,7 +16,7 @@
  			
  			
  			<!-- none | drop-and-create | create | drop -->
- 			<property name="javax.persistence.schema-generation.database.action" value="create"/> 
+ 			<property name="javax.persistence.schema-generation.database.action" value="none"/> 
 
 			
 			<!-- validate | update | create | create-drop -->

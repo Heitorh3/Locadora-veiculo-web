@@ -4,7 +4,7 @@
 		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" 
 		reloadable="true" />
 
-<Resource auth="Container"
+<!-- <Resource auth="Container"
           driverClass="com.mysql.jdbc.Driver"
               maxPoolSize="4" 
               minPoolSize="2"
@@ -14,6 +14,6 @@
               password="If07Nt13" 
               factory="org.apache.naming.factory.BeanFactory"
           type="com.mchange.v2.c3p0.ComboPooledDataSource"
-              jdbcUrl="jdbc:mysql://localhost:3306/locadoradb" />
+              jdbcUrl="jdbc:mysql://localhost:3306/locadoradb" /> -->
 
 </Context>
